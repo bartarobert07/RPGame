@@ -1,0 +1,4 @@
+﻿  Player.c
+C:\Users\barta\OneDrive\Dokumentumok\GitHub\RPGame\RPG\RPG\Player.c(6,35): warning C4013: 'calloc' undefined; assuming extern returning int
+C:\Users\barta\OneDrive\Dokumentumok\GitHub\RPGame\RPG\RPG\Player.c(10,7): warning C4013: 'exit' undefined; assuming extern returning int
+  RPG.vcxproj -> C:\Users\barta\OneDrive\Dokumentumok\GitHub\RPGame\RPG\Debug\RPG.exe
