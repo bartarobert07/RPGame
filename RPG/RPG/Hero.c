@@ -18,8 +18,8 @@ Hero* CreateHero()
 		exit(1);
 	}
 
-	hero->body = (char**)(calloc(3, sizeof(char*)));
-	hero->body[0] = (char*)(calloc(5, sizeof(char)));
+	//hero->body = (char**)(calloc(3, sizeof(char*)));
+	hero->body = (char*)(calloc(1, sizeof(char)));
 	/*hero->body[1] = (char*)(calloc(5, sizeof(char)));
 	hero->body[2] = (char*)(calloc(5, sizeof(char)));*/
 
@@ -30,8 +30,12 @@ Hero* CreateHero()
 	}
 
 	hero->HP = 100;
+	hero->posX = 1;
+	hero->prevPosX = 1;
+	hero->posY = 1;
+	hero->prevPosY = 1;
 
-	strcpy(hero->body[0],"o");
+	hero->body = 'o';
 	/*strcpy(hero->body[1]," /|\\");
 	strcpy(hero->body[2]," / \\  ");*/
 
@@ -46,9 +50,34 @@ Hero* CreateHero()
 	return hero;
 }
 
-void PrintBody(Hero* hero)
+void MoveRight(Hero* hero)
 {
-	printf("%s\n", hero->body[0]);
-	printf("%s\n", hero->body[1]);
-	printf("%s\n", hero->body[2]);
+	hero->prevPosY = hero->posY;
+	hero->prevPosX = hero->posX;
+	++hero->posY;
 }
+
+void MoveLeft(Hero* hero)
+{
+	hero->prevPosY = hero->posY;
+	hero->prevPosX = hero->posX;
+	--hero->posY;
+}
+
+void MoveDown(Hero* hero)
+{
+	hero->prevPosY = hero->posY;
+	hero->prevPosX = hero->posX;
+	++hero->posX;
+}
+
+void MoveUp(Hero* hero)
+{
+	hero->prevPosY = hero->posY;
+	hero->prevPosX = hero->posX;
+	--hero->posX;
+}
+
+
+
+

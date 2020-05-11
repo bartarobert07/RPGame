@@ -11,17 +11,27 @@
 typedef struct Hero {
 	char* name;
 	bool gender;
-	char** body;
+	char* body;
 	int HP;
+	int prevPosX;
+	int prevPosY;
+	int posX;
+	int posY;
 }Hero;
 
 //Hero típus létrehozása
 Hero* CreateHero();
 
-//Hero megjelenítése
-void PrintBody(Hero* hero, int x, int y);
+//Jobbra mozgás
+void MoveRight(Hero* hero);
 
+//Balra mozgás
+void MoveLeft(Hero* hero);
 
+//Le mozgás
+void MoveDown(Hero* hero);
 
+//Fel mozgás
+void MoveUp(Hero* hero);
 
 #endif

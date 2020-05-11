@@ -1,4 +1,4 @@
-#include "Map.h"
+Ôªø#include "Map.h"
 #include "Hero.h"
 
 Map* CreateAndReadMap(FILE* file){
@@ -6,11 +6,11 @@ Map* CreateAndReadMap(FILE* file){
 	Map* map = (Map*)(calloc(1, sizeof(Map)));
 	if (!map) {
 		printf("'\t\tError!\n");
-		printf("Sikertelen Map tÌpus lefoglal·s!");
+		printf("Sikertelen Map t√≠pus lefoglal√°s!");
 		exit(1);
 	}
 
-	map->sideLength = 10;
+	map->sideLength = 25;
 
 	map->coord = (char**)(calloc(map->sideLength, sizeof(char*)));
 	for (int i = 0; i < map->sideLength; ++i) {
@@ -19,13 +19,13 @@ Map* CreateAndReadMap(FILE* file){
 
 	if (!map->coord) {
 		printf("'\t\tError!\n");
-		printf("Sikertelen tÈrkÈp helylefoglal·s!");
+		printf("Sikertelen t√©rk√©p helylefoglal√°s!");
 		exit(1);
 	}
 
 	for (int i = 0; i < map->sideLength; ++i) {
 		for (int j = 0; j < map->sideLength; ++j) {
-			fscanf(file, "%c\n", map->coord[i][j]);
+			fscanf(file, "%c\n", &map->coord[i][j]);
 		}
 	}
 
@@ -34,39 +34,42 @@ Map* CreateAndReadMap(FILE* file){
 
 void PlaceHero(Map* map, Hero* hero)
 {
-	int x, y;
-	printf("Add meg a koordin·t·kat!\n\tx=");
-	scanf("%i", &x);
-	if (x > map->sideLength - 1 || x < 0) {
-		printf("Nem lÈtezı x koordin·t·t prÛb·lt megadni!");
-		exit(1);
-	}
-	printf("\ty=");
-	scanf("%i", &y);
-	if (y > map->sideLength - 1 || y < 0) {
-		printf("Nem lÈtezı y koordin·t·t prÛb·lt megadni!");
-		exit(1);
-	}
-	map->coord[x][y] = hero->body[0];
+	map->coord[hero->prevPosX][hero->prevPosY] = '0';
+	map->coord[hero->posX][hero->posY] = hero->body;
+
 }
 
 
 void PrintMap(Map* map) {
 	for (int i = 0; i < map->sideLength; ++i) {
 		for (int j = 0; j < map->sideLength; ++j) {
-			if (map->coord[i][j] == 1) {
-				printf("_");
+			if (map->coord[i][j] == '0') {
+				printf("  ");
 			}
 
-			if (map->coord[i][j] == 0) {
+			else if (map->coord[i][j] == '1' && (i == 0 || i == map->sideLength - 1) && (j > 0 && j < map->sideLength - 1)) {
+				printf("__");
+			}
+
+			else if (map->coord[i][j] == '1' && (j == map->sideLength - 1) && i > 0 && i < map->sideLength) {
+				printf("|");
+			}
+
+			else if (map->coord[i][j] == '1' && (j == 0) && i > 0 && i < map->sideLength) {
+				printf("|");
+			}
+
+			else if (map->coord[i][j] == '1' && ((j == 0 && i == 0) || j == map->sideLength - 1 && i == 0) ) {
 				printf(" ");
 			}
 
-			if (map->coord[i][j] == 2) {
-				printf("|");
+			else{
+				printf("%c ",map->coord[i][j]);
 			}
+
 		}
 		printf("\n");
 	}
 	
 }
+

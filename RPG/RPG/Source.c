@@ -24,13 +24,58 @@ int main() {
 
 	Hero* hero = CreateHero();
 	Map* map = CreateAndReadMap(fin);
-	/*int option;
-	scanf("%i", &option);
-	while (option != 0) {
-		scanf("%i", &option);
-		PlaceHero(map, hero);
-	}*/
+	PlaceHero(map, hero);
 	PrintMap(map);
-	
+	while (1) {
+		char option = getch();
+		
+		if (option == 'w') {
+			if (hero->posX - 1 == 0 ) {
+				system("CLS");
+				printf("Nem szabad a falnak menni %s!",hero->name);
+				Sleep(2000);
+			}
+			else {
+				MoveUp(hero);
+			}
+		}
 
+		if (option == 'a') {
+			if (hero->posY - 1 == 0) {
+				system("CLS");
+				printf("Nem szabad a falnak menni %s!", hero->name);
+				Sleep(2000);
+			}
+			else {
+				MoveLeft(hero);
+			}
+		}
+
+		if (option == 's') {
+			if (hero->posX + 1 == map->sideLength - 1) {
+				system("CLS");
+				printf("Nem szabad a falnak menni %s!", hero->name);
+				Sleep(2000);
+			}
+			else {
+				MoveDown(hero);
+			}
+		}
+
+		if (option == 'd') {
+			if (hero->posY + 1 == map->sideLength - 1) {
+				system("CLS");
+				printf("Nem szabad a falnak menni %s!", hero->name);
+				Sleep(2000);
+			}
+			else {
+				MoveRight(hero);
+			}
+		}
+		
+		Sleep(100);
+		system("CLS");
+		PlaceHero(map, hero);
+		PrintMap(map);
+	}
 }
