@@ -3,7 +3,8 @@
 #define WIN32_LEAN_AND_MEAN
 
 #include <stdio.h>
-#include "Player.h"
+#include "Hero.h"
+#include "Map.h"
 #include <locale.h>
 #if defined(WIN32) || defined(_WIN32)
 #include <windows.h>
@@ -15,9 +16,21 @@ int main() {
 	SetConsoleCP(1250); SetConsoleOutputCP(1250);
 	#endif
 
-	Player* player = Create();
-	PrintBody(player);
+	FILE* fin = fopen("Map.txt", "rt");
+	if (!fin) {
+		printf("Sikertelen fájlmegnyitás!");
+		exit(1);
+	}
 
+	Hero* hero = CreateHero();
+	Map* map = CreateAndReadMap(fin);
+	/*int option;
+	scanf("%i", &option);
+	while (option != 0) {
+		scanf("%i", &option);
+		PlaceHero(map, hero);
+	}*/
+	PrintMap(map);
 	
 
 }
