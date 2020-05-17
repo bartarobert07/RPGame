@@ -1,5 +1,5 @@
 ﻿  Source.c
-C:\Users\barta\OneDrive\Dokumentumok\GitHub\RPGame\RPG\RPG\Source.c(22,7): warning C4013: 'exit' undefined; assuming extern returning int
-C:\Users\barta\OneDrive\Dokumentumok\GitHub\RPGame\RPG\RPG\Source.c(30,22): warning C4013: 'getch' undefined; assuming extern returning int
-C:\Users\barta\OneDrive\Dokumentumok\GitHub\RPGame\RPG\RPG\Source.c(34,11): warning C4013: 'system' undefined; assuming extern returning int
+C:\Users\barta\OneDrive\Dokumentumok\GitHub\RPGame\RPG\RPG\Source.c(25,7): warning C4013: 'exit' undefined; assuming extern returning int
+C:\Users\barta\OneDrive\Dokumentumok\GitHub\RPGame\RPG\RPG\Source.c(31,8): warning C4013: 'system' undefined; assuming extern returning int
+C:\Users\barta\OneDrive\Dokumentumok\GitHub\RPGame\RPG\RPG\Source.c(39,22): warning C4013: 'getch' undefined; assuming extern returning int
   RPG.vcxproj -> C:\Users\barta\OneDrive\Dokumentumok\GitHub\RPGame\RPG\Debug\RPG.exe

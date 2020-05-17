@@ -10,8 +10,8 @@
 
 typedef struct Hero {
 	char* name;
-	bool gender;
 	char* body;
+	int bodyColor;
 	int HP;
 	int prevPosX;
 	int prevPosY;
@@ -33,5 +33,14 @@ void MoveDown(Hero* hero);
 
 //Fel mozgás
 void MoveUp(Hero* hero);
+
+//HP levonás
+void HPdrop(Hero* hero, int point);
+
+//Hero kinézet választás
+void HeroBodySelect(Hero* hero);
+
+//Hero kiiratása
+void PrintBody(Hero* hero);
 
 #endif

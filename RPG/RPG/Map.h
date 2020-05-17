@@ -21,6 +21,6 @@ Map* CreateAndReadMap(FILE* file);
 void PlaceHero(Map* map, Hero* hero);
 
 //Térkép megjelenítése 
-void PrintMap(Map* map);
+void PrintMap(Map* map, Hero* hero);
 
 #endif
