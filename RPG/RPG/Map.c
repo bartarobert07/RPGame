@@ -11,11 +11,12 @@ Map* CreateAndReadMap(FILE* file){
 		exit(1);
 	}
 
-	map->sideLength = 10;
+	fscanf(file, "%i", &map->XsideLength);
+	fscanf(file, "%i\n", &map->YsideLength);
 
-	map->coord = (char**)(calloc(map->sideLength, sizeof(char*)));
-	for (int i = 0; i < map->sideLength; ++i) {
-		map->coord[i] = (char*)(calloc(map->sideLength, sizeof(char)));
+	map->coord = (char**)(calloc(map->XsideLength, sizeof(char*)));
+	for (int i = 0; i < map->XsideLength; ++i) {
+		map->coord[i] = (char*)(calloc(map->YsideLength, sizeof(char)));
 	}
 
 	if (!map->coord) {
@@ -24,8 +25,8 @@ Map* CreateAndReadMap(FILE* file){
 		exit(1);
 	}
 
-	for (int i = 0; i < map->sideLength; ++i) {
-		for (int j = 0; j < map->sideLength; ++j) {
+	for (int i = 0; i < map->XsideLength; ++i) {
+		for (int j = 0; j < map->YsideLength; ++j) {
 			fscanf(file, "%c\n", &map->coord[i][j]);
 		}
 	}
@@ -42,32 +43,49 @@ void PlaceHero(Map* map, Hero* hero)
 
 
 void PrintMap(Map* map, Hero* hero) {
-	for (int i = 0; i < map->sideLength; ++i) {
-		for (int j = 0; j < map->sideLength; ++j) {
+	for (int i = 0; i < map->XsideLength; ++i) {
+		switch (map->YsideLength) {
+		case 20:
+			printf("\t\t\t\t\t\t");
+			break;
+		
+		case 30:
+			printf("\t\t\t\t\t   ");
+			break;
+		
+		case 40:
+			printf("\t\t\t\t\t");
+			break;
+		}
+		
+		for (int j = 0; j < map->YsideLength; ++j) {
 			if (map->coord[i][j] == '0') {
-				printf("  ");
-			}
-
-			else if (map->coord[i][j] == '1' && (i == 0 || i == map->sideLength - 1) && (j > 0 && j < map->sideLength - 1)) {
-				printf("\033[0;31m");
-				printf("__");
-				printf("\033[0m");
-			}
-
-			else if (map->coord[i][j] == '1' && (j == map->sideLength - 1) && i > 0 && i < map->sideLength) {
-				printf("\033[0;31m");
-				printf("|");
-				printf("\033[0m");
-			}
-
-			else if (map->coord[i][j] == '1' && (j == 0) && i > 0 && i < map->sideLength) {
-				printf("\033[0;31m");
-				printf("|");
-				printf("\033[0m");
-			}
-
-			else if (map->coord[i][j] == '1' && ((j == 0 && i == 0) || j == map->sideLength - 1 && i == 0) ) {
 				printf(" ");
+			}
+
+			else if (map->coord[i][j] == '1' && (i == 0 || i == map->XsideLength - 1)){
+				printf("\033[0;31m");
+				printf("-");
+				printf("\033[0m");
+			}
+
+			else if (map->coord[i][j] == '1' && (i > 0 || i < map->XsideLength - 1)) {
+				printf("\033[0;31m");
+				printf("|");
+				printf("\033[0m");
+			}
+			
+
+			else if (map->coord[i][j] == '3') {
+				printf("\033[0;31m");
+				printf("-");
+				printf("\033[0m");
+			}
+
+			else if (map->coord[i][j] == '4') {
+				printf("\033[0;31m");
+				printf("|");
+				printf("\033[0m");
 			}
 
 			else{
@@ -113,7 +131,7 @@ void PrintMap(Map* map, Hero* hero) {
 					break;
 				}
 
-				printf("%c ",map->coord[i][j]);
+				printf("%c",map->coord[i][j]);
 				printf("\033[0m");
 			}
 
@@ -121,5 +139,92 @@ void PrintMap(Map* map, Hero* hero) {
 		printf("\n");
 	}
 	
+}
+
+void PrintBlankMap(Map* map, Hero* hero)
+{
+	for (int i = 0; i < map->XsideLength; ++i) {
+		switch (map->YsideLength) {
+		case 20:
+			printf("\t\t\t\t\t\t");
+			break;
+
+		case 30:
+			printf("\t\t\t\t\t   ");
+			break;
+
+		case 40:
+			printf("\t\t\t\t\t");
+			break;
+		}
+
+		for (int j = 0; j < map->YsideLength; ++j) {
+			if (map->coord[i][j] == '0' || map->coord[i][j] == '3' || map->coord[i][j] == '4') {
+				printf(" ");
+			}
+
+			else if (map->coord[i][j] == '1' && (i == 0 || i == map->XsideLength - 1)) {
+				printf("\033[0;31m");
+				printf("-");
+				printf("\033[0m");
+			}
+
+			else if (map->coord[i][j] == '1' && (i > 0 || i < map->XsideLength - 1)) {
+				printf("\033[0;31m");
+				printf("|");
+				printf("\033[0m");
+			}
+
+
+			else {
+				switch (hero->bodyColor) {
+				case 0:
+					printf("\033[0m");
+					break;
+				case 1:
+					printf("\033[0;31m");
+					break;
+				case 2:
+					printf("\033[1;31m");
+					break;
+				case 3:
+					printf("\033[0;32m");
+					break;
+				case 4:
+					printf("\033[1;32m");
+					break;
+				case 5:
+					printf("\033[0;33m");
+					break;
+				case 6:
+					printf("\033[1;33m");
+					break;
+				case 7:
+					printf("\033[0;34m");
+					break;
+				case 8:
+					printf("\033[1;34m");
+					break;
+				case 9:
+					printf("\033[0;35m");
+					break;
+				case 10:
+					printf("\033[1;35m");
+					break;
+				case 11:
+					printf("\033[0;36m");
+					break;
+				case 12:
+					printf("\033[1;36m");
+					break;
+				}
+
+				printf("%c", map->coord[i][j]);
+				printf("\033[0m");
+			}
+
+		}
+		printf("\n");
+	}
 }
 

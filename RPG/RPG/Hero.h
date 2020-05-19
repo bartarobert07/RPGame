@@ -37,6 +37,9 @@ void MoveUp(Hero* hero);
 //HP levonás
 void HPdrop(Hero* hero, int point);
 
+//HP hozzáadás
+void HPadd(Hero* hero, int point);
+
 //Hero kinézet választás
 void HeroBodySelect(Hero* hero);
 

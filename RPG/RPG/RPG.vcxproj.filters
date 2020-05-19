@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\Maps">
+      <UniqueIdentifier>{9e94f679-d5d8-4ccf-a454-ea67d0129f27}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.c">
@@ -41,7 +44,13 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="Map.txt">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Maps</Filter>
+    </Text>
+    <Text Include="Map2.txt">
+      <Filter>Source Files\Maps</Filter>
+    </Text>
+    <Text Include="Map1.txt">
+      <Filter>Source Files\Maps</Filter>
     </Text>
   </ItemGroup>
 </Project>

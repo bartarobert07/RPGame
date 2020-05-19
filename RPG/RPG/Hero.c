@@ -5,6 +5,7 @@
 
 Hero* CreateHero()
 {
+	system("CLS");
 	Hero* hero = (Hero*)(calloc(1, sizeof(Hero)));
 	if (!hero) {
 		printf("'\t\tError!\n");
@@ -28,7 +29,7 @@ Hero* CreateHero()
 		exit(1);
 	}
 
-	hero->HP = 20;
+	hero->HP = 30;
 
 	hero->posX = 1;
 	hero->posY = 1;
@@ -94,6 +95,11 @@ void MoveUp(Hero* hero)
 
 void HPdrop(Hero* hero, int point) {
 	hero->HP = hero->HP - point;
+}
+
+void HPadd(Hero* hero, int point)
+{
+	hero->HP = hero->HP + point;
 }
 
 void HeroBodySelect(Hero* hero) {

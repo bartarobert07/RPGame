@@ -12,10 +12,13 @@
 
 
 //Játék kezdõképernyõ
-void StartGame(Hero* hero, Map* map);
+void StartGame();
 
 //Játék vége
 void GameOver();
+
+//Szint megnyerése
+void Win(Hero* hero);
 
 
 #endif // !GAME_H

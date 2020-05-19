@@ -25,21 +25,51 @@ int main() {
 		exit(1);
 	}
 
+	FILE* fin1 = fopen("Map1.txt", "rt");
+	if (!fin) {
+		printf("Sikertelen fájlmegnyitás!");
+		exit(1);
+	}
+
+	FILE* fin2 = fopen("Map2.txt", "rt");
+	if (!fin) {
+		printf("Sikertelen fájlmegnyitás!");
+		exit(1);
+	}
+
+	int winCounter = 0;
+
+	StartGame();
 	Hero* hero = CreateHero();
 	Map* map = CreateAndReadMap(fin);
+
 	HeroBodySelect(hero);
+
+restart:
+	hero->posX = 1;
+	hero->posY = 1;
 	system("CLS");
+	printf("\t\t\t\t\t      Jegyezd meg a pályát %s!\n\t\t\t\t\t         Van 10 másodperced!\n", hero->name);
+	PrintMap(map, hero);
+	Sleep(10000);
+	system("CLS");
+
 	PlaceHero(map, hero);
-	printf("Játékos neve:%s\n", hero->name);
-	printf("Játékos HP:%i\n", hero->HP);
-	printf("Mozgás:WASD\n");
-	PrintMap(map,hero);
+	printf("\t\t\t\t\t\t   Játékos neve:%s\n", hero->name);
+	printf("\t\t\t\t\t\t   Játékos HP:%i\n", hero->HP);
+	printf("\t\t\t\t\t\t    Mozgás:WASD\n");
+
+	PrintBlankMap(map,hero);
+
 	while (1) {
 
 		char option = getch();
 		
 			if (option == 'w' || option == 'W') {
-				if (hero->posX - 1 == 0 ) {
+				if (map->coord[hero->posX - 1][hero->posY] == 'x' || map->coord[hero->posX - 1][hero->posY] == '+') {
+					MoveUp(hero);
+				}
+				else if (map->coord[hero->posX - 1][hero->posY] != '0' ) {
 					if (hero->HP > 10) {
 						system("CLS");
 						printf("Nem szabad a falnak menni %s!\nEz 10 életpontodba kerül!\nLegközelebb legyél óvatosabb!", hero->name);
@@ -53,7 +83,10 @@ int main() {
 			}
 
 			if (option == 'a' || option == 'A') {
-				if (hero->posY - 1 == 0) {
+				if (map->coord[hero->posX][hero->posY - 1] == 'x' || map->coord[hero->posX][hero->posY - 1] == '+') {
+					MoveLeft(hero);
+				}
+				else if (map->coord[hero->posX][hero->posY - 1] != '0') {
 					if (hero->HP > 10) {
 						system("CLS");
 						printf("Nem szabad a falnak menni %s!\nEz 10 életpontodba kerül!\nLegközelebb legyél óvatosabb!", hero->name);
@@ -67,7 +100,10 @@ int main() {
 			}
 
 			if (option == 's' || option == 'S') {
-				if (hero->posX + 1 == map->sideLength - 1) {
+				if (map->coord[hero->posX + 1][hero->posY] == 'x' || map->coord[hero->posX + 1][hero->posY] == '+') {
+					MoveDown(hero);
+				}
+				else if (map->coord[hero->posX + 1][hero->posY] !='0') {
 					if (hero->HP > 10) {
 						system("CLS");
 						printf("Nem szabad a falnak menni %s!\nEz 10 életpontodba kerül!\nLegközelebb legyél óvatosabb!", hero->name);
@@ -81,7 +117,10 @@ int main() {
 			}
 
 			if (option == 'd' || option == 'D') {
-				if (hero->posY + 1 == map->sideLength - 1) {
+				if (map->coord[hero->posX][hero->posY + 1] == 'x' || map->coord[hero->posX][hero->posY + 1] == '+') {
+					MoveRight(hero);
+				}
+				else if ( map->coord[hero->posX ][hero->posY + 1] !='0') {
 					if (hero->HP > 10) {
 						system("CLS");
 						printf("Nem szabad a falnak menni %s!\nEz 10 életpontodba kerül!\nLegközelebb legyél óvatosabb!", hero->name);
@@ -97,14 +136,42 @@ int main() {
 			if (hero->HP == 0) {
 				GameOver();
 			}
+			
+			if (map->coord[hero->posX][hero->posY] == 'x') {
+				winCounter++;
+				if (winCounter == 1) {
+					Win(hero);
+					map = CreateAndReadMap(fin1);
+					
+					goto restart;
+				}
+				if (winCounter == 2) {
+					Win(hero);
+					map = CreateAndReadMap(fin2);
+					
+					goto restart;
+				}
+				if (winCounter == 3) {
+					printf("Gratulálok %s!\n", hero->name);
+					printf("Sikeresen befejezted a MemoLab játékot!\n");
+					exit(1);
+				
+				}
+			}
 
+			if (map->coord[hero->posX][hero->posY] == '+') {
+				system("CLS");
+				printf("Szereztél 10 életpontot magadnak!");
+				HPadd(hero,10);
+				Sleep(3000);
+			}
 
 			system("CLS");
 			PlaceHero(map, hero);
-			printf("Játékos neve:%s\n", hero->name);
-			printf("Játékos HP:%i\n", hero->HP);
-			printf("Mozgás:WASD\n");
-			PrintMap(map, hero);
+			printf("\t\t\t\t\t\t   Játékos neve:%s\n", hero->name);
+			printf("\t\t\t\t\t\t   Játékos HP:%i\n", hero->HP);
+			printf("\t\t\t\t\t\t    Mozgás:WASD\n");
+			PrintBlankMap(map, hero);
 		
 	}
 

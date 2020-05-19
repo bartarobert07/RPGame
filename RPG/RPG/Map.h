@@ -11,7 +11,8 @@
 
 typedef struct Map {
 	char** coord;
-	int sideLength;
+	int XsideLength;
+	int YsideLength;
 }Map;
 
 //Map létrehozása és beolvasása
@@ -22,5 +23,8 @@ void PlaceHero(Map* map, Hero* hero);
 
 //Térkép megjelenítése 
 void PrintMap(Map* map, Hero* hero);
+
+//Sima térkép megjelenítése
+void PrintBlankMap(Map* map, Hero* hero);
 
 #endif
